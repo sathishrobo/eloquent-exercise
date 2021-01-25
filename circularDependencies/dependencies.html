@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circular Dependencies</title>
+</head>
+
+<body>
+    <h2>Circular Dependencies</h2>
+    <script>
+        // --- Module A
+
+        import C from 'C'
+
+        class A extends C {
+            // ...
+        }
+
+        export { A as default }
+
+
+
+        // --- Module B
+
+        import C from 'C'
+
+        class B extends C {
+            // ...
+        }
+
+        export { B as default }
+
+        // --- Module C
+
+        import A from 'A'
+        import B from 'B'
+
+        class C {
+            constructor() {
+                console.log(A)
+                console.log(B)
+            }
+        }
+
+        export { C as default }
+
+    </script>
+</body>
+
+</html>
